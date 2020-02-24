@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1582479836 source:/home/vld/Projects/fstrm/fstrm/test.c
+1582579429 source:/home/vld/Projects/fstrm/fstrm/test.c
 	"test.h"
 	"fstrm.h"
 	<stdio.h>
@@ -9,10 +9,10 @@
 	<stdio.h>
 	<stdbool.h>
 
-1582480037 /home/vld/Projects/fstrm/fstrm/fstrm.h
+1582579853 /home/vld/Projects/fstrm/fstrm/fstrm.h
 	<stdio.h>
 
-1582481227 source:/home/vld/Projects/fstrm/fstrm/fstrm.c
+1582579406 source:/home/vld/Projects/fstrm/fstrm/fstrm.c
 	"fstrm.h"
 	<stdio.h>
 	<string.h>

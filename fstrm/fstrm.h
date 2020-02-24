@@ -1,5 +1,5 @@
 /*  fstrm.h -- binary mode file stream
-    v1.0
+    v1.01
 
     Emulates random access to a file while sticking to the standard. Uses
     fsetpos(), fgetpos() instead of fseek(), ftell(). Allows for read, write,
@@ -8,7 +8,7 @@
 
     Author: Vladimir Dinev
     vld.dinev@gmail.com
-    2020-02-23
+    2020-02-24
 */
 
 #ifndef FSTRM_H
@@ -24,7 +24,6 @@ typedef struct fstrm_pos {
 // Do not use directly
 typedef struct fstrm {
     FILE * pfile;
-    fpos_t start;
 } fstrm;
 
 typedef enum fstrm_mode {
@@ -43,7 +42,7 @@ typedef enum fstrm_open_code {
     FSTRM_OPEN_OK,          // stream opened successfully
     FSTRM_OPEN_ARG_ERR,     // bad argument to fst_open*()
     FSTRM_OPEN_FOPEN_ERR,   // fopen() failed
-    FSTRM_OPEN_OP_ERR,      // setvbuf() or fgetpos() failed in fst_open*()
+    FSTRM_OPEN_BUFF_ERR,    // setvbuf() failed
 } fstrm_open_code;
 
 fstrm_open_code fst_open_bscale(
@@ -65,10 +64,10 @@ Returns: Nothing.
 Description: Closes the file associated with fst and zeroes out *fst.
 */
 
-fstrm_stat fst_rewind(fstrm * fst);
+void fst_rewind(fstrm * fst);
 /*
-Returns: One of fstrm_stat.
-Description: Does fsetpos() to the start of the file.
+Returns: Nothing.
+Description: Rewinds to the start of the file.
 */
 
 fstrm_stat fst_wind_to(fstrm * fst, size_t ofs);

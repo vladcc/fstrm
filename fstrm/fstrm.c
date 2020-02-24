@@ -33,17 +33,13 @@ fstrm_open_code fst_open_bscale(
     if (!pfile)
         return FSTRM_OPEN_FOPEN_ERR;
 
-    fpos_t start;
-    if ((setvbuf(pfile, NULL, _IOFBF, BUFSIZ*bscale) != 0)
-        || (fgetpos(pfile, &start) != 0))
+    if (setvbuf(pfile, NULL, _IOFBF, BUFSIZ*bscale) != 0)
     {
         fclose(pfile);
-        return FSTRM_OPEN_OP_ERR;
+        return FSTRM_OPEN_BUFF_ERR;
     }
 
     fst->pfile = pfile;
-    fst->start = start;
-
     return FSTRM_OPEN_OK;
 }
 //------------------------------------------------------------------------------
@@ -55,17 +51,15 @@ void fst_close(fstrm * fst)
 }
 //------------------------------------------------------------------------------
 
-fstrm_stat fst_rewind(fstrm * fst)
+void fst_rewind(fstrm * fst)
 {
-    return (fsetpos(fst->pfile, &(fst->start)) == 0) ?
-        FSTRM_STAT_OK : FSTRM_STAT_ERR;
+    rewind(fst->pfile);
 }
 //------------------------------------------------------------------------------
 
 fstrm_stat fst_wind_to(fstrm * fst, size_t ofs)
 {
-    if (fst_rewind(fst) != FSTRM_STAT_OK)
-        return FSTRM_STAT_ERR;
+    fst_rewind(fst);
 
     unsigned char b;
     for (size_t i = 0; i < ofs; ++i)

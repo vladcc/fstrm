@@ -145,7 +145,7 @@ static bool test_open_read(void)
     check(FSTRM_STAT_OK == fst_read_byte(fst, &b));
     check('e' == b);
 
-    check(FSTRM_STAT_OK == fst_rewind(fst));
+    fst_rewind(fst);
     check(FSTRM_STAT_OK == fst_read_byte(fst, &b));
     check('T' == b);
     check(FSTRM_STAT_OK == fst_read_byte(fst, &b));
